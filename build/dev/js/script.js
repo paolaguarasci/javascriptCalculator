@@ -5656,7 +5656,27 @@
             });
             return result;
         }
-        alert(calc([ 5, "*", 4, "*", 3, "*", 2, "*", 1 ]));
+        var n = [];
+        var op = [];
+        var buff = [];
+        $(".num p").click(function() {
+            n.push(parseInt($(this).html()));
+            buff.push(parseInt($(this).html()));
+            $(".operation").html(buff);
+        });
+        $(".op p").click(function() {
+            op.push($(this).html());
+            buff.push($(this).html());
+            $(".operation").html(buff);
+        });
+        $(".res p").click(function() {
+            $(".result p").html(calc(buff));
+            buff = [];
+            $(".operation").html("0");
+            console.log(calc(buff));
+        });
+        var test = [ 5, "*", 4, "*", 3, "*", 2, "*", 1 ];
+        alert(test.join("") + " = " + calc(test));
     }, {
         jquery: 1
     } ]

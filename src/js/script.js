@@ -1,6 +1,11 @@
 // TODO
 var $ = require('jquery');
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
+// Calculator Core function
 function calc(value) {
   var operators = {
       '+': function(a, b) { return a + b },
@@ -34,6 +39,32 @@ function calc(value) {
   return result;
 }
 
+// immissione dati
+//
 
+var n = [];
+var op = [];
+var buff = [];
 
-alert(calc([5, '*', 4, '*', 3, '*', 2, '*', 1]));
+$( ".num p" ).click(function() {
+  n.push(parseInt($( this ).html()));
+  buff.push(parseInt($( this ).html()));
+  $(".operation").html(buff);
+});
+
+$( ".op p" ).click(function() {
+  op.push($( this ).html());
+  buff.push($( this ).html());
+  $(".operation").html(buff);
+});
+
+$(".res p").click(function() {
+  $(".result p").html(calc(buff));
+  buff = [];
+  $(".operation").html('0');
+  console.log(calc(buff));
+});
+
+// test result
+var test = [5, '*', 4, '*', 3, '*', 2, '*', 1];
+alert(test.join('') + ' = ' + calc(test));
