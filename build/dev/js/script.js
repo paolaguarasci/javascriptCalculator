@@ -5656,27 +5656,27 @@
             });
             return result;
         }
-        var n = [];
+        var n = "";
         var op = [];
         var buff = [];
         $(".num p").click(function() {
-            n.push(parseInt($(this).html()));
-            buff.push(parseInt($(this).html()));
+            n += $(this).html();
             $(".operation").html(buff);
         });
         $(".op p").click(function() {
             op.push($(this).html());
+            buff.push(parseInt(n));
             buff.push($(this).html());
             $(".operation").html(buff);
+            n = "";
         });
         $(".res p").click(function() {
+            buff.push(parseInt(n));
             $(".result p").html(calc(buff));
-            buff = [];
+            console.log(buff);
+            buff.splice(0, buff.length);
             $(".operation").html("0");
-            console.log(calc(buff));
         });
-        var test = [ 5, "*", 4, "*", 3, "*", 2, "*", 1 ];
-        alert(test.join("") + " = " + calc(test));
     }, {
         jquery: 1
     } ]
