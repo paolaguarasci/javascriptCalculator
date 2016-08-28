@@ -64,6 +64,7 @@ $(".res p").click(function() {
   $(".result p").html(calc(buff));
   console.log(buff);
   buff.splice(0,buff.length);
+  n = '';
   $(".operation").html('0');
 
 });
