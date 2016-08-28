@@ -1,9 +1,15 @@
-// TODO
 var $ = require('jquery');
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+
+// TODO
+// X implementare la visulizzazione live dell'operazione
+// - implementare i tasti AC e CE
+
+
 
 // Calculator Core function
 function calc(value) {
@@ -40,27 +46,37 @@ function calc(value) {
 }
 
 // immissione dati
-//
-
 var n = '';
 var op = [];
 var buff = [];
 var history = [];
 
+// Eventi legati alla pressione dei numeri
 $( ".num p" ).click(function() {
-  // if (buff.length === 0 || typeof buff[buff.length-1] !== 'number' ) {
-  //   n += $( this ).html();
-  //   $(".operation p").html(n);
-  // }
 
   if (typeof buff[buff.length-1] === 'number' ) {
     buff.splice(0,buff.length);
     $(".result p").html('0');
+    $(".operation p").html('');
   }
-  n += $( this ).html();
-  $(".operation p").html(n);
-});
 
+  n += $( this ).html();
+
+  if ($(".operation p").html() === '0' ){
+    $(".operation p").html($( this ).html());
+    $(".result p").html($(this).html());
+  }
+
+  if (n.length === 1){
+    $(".result p").html($(this).html());
+    $(".operation p").append($( this ).html());
+  }  else {
+    $(".operation p").append($( this ).html());
+    $(".result p").append($(this).html());
+  }
+}); //fine eventi numeri
+
+//Eventi legati alla pressione degli operatori
 $( ".op p" ).click(function() {
   op.push($( this ).html());
   if (n){
@@ -68,11 +84,14 @@ $( ".op p" ).click(function() {
   }
   if (typeof buff[buff.length-1] === 'number' ) {
    buff.push($( this ).html());
+   $(".operation p").append($( this ).html());
+   $(".result p").html($(this).html());
   }
-  $(".operation p").html(buff);
-  n = '';
-});
 
+  n = '';
+}); // fine eventi operatori
+
+//Eventi legati alla pressione del tasto "="
 $(".res p").click(function() {
   if (n){
     buff.push(parseFloat(n));
@@ -82,25 +101,19 @@ $(".res p").click(function() {
     buff.pop();
   }
 
-
   history.push(calc(buff));
   $(".result p").html(calc(buff));
+  $(".operation p").append('='+calc(buff));
   buff.splice(0,buff.length);
   buff.push(history[history.length-1]);
   n = '';
-  $(".operation p").html('0');
+});// fine eventi "="
 
-
-});
-
+//Eventi lefati alla pressione del tasto "."
 $('.punto p').click(function(){
   if (n.indexOf('.') === -1 ) {
     n += $( this ).html();
-    $(".operation p").html(n);
+    $(".operation p").append($(this).html());
+    $(".result p").append($(this).html());
   }
-});
-
-
-// test result
-// var test = [5, '*', 4, '*', 3, '*', 2, '*', 1];
-// alert(test.join('') + ' = ' + calc(test));
+}); //fine eventi "."

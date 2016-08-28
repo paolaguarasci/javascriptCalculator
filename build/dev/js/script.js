@@ -5664,9 +5664,20 @@
             if (typeof buff[buff.length - 1] === "number") {
                 buff.splice(0, buff.length);
                 $(".result p").html("0");
+                $(".operation p").html("");
             }
             n += $(this).html();
-            $(".operation p").html(n);
+            if ($(".operation p").html() === "0") {
+                $(".operation p").html($(this).html());
+                $(".result p").html($(this).html());
+            }
+            if (n.length === 1) {
+                $(".result p").html($(this).html());
+                $(".operation p").append($(this).html());
+            } else {
+                $(".operation p").append($(this).html());
+                $(".result p").append($(this).html());
+            }
         });
         $(".op p").click(function() {
             op.push($(this).html());
@@ -5675,8 +5686,9 @@
             }
             if (typeof buff[buff.length - 1] === "number") {
                 buff.push($(this).html());
+                $(".operation p").append($(this).html());
+                $(".result p").html($(this).html());
             }
-            $(".operation p").html(buff);
             n = "";
         });
         $(".res p").click(function() {
@@ -5688,15 +5700,16 @@
             }
             history.push(calc(buff));
             $(".result p").html(calc(buff));
+            $(".operation p").append("=" + calc(buff));
             buff.splice(0, buff.length);
             buff.push(history[history.length - 1]);
             n = "";
-            $(".operation p").html("0");
         });
         $(".punto p").click(function() {
             if (n.indexOf(".") === -1) {
                 n += $(this).html();
-                $(".operation p").html(n);
+                $(".operation p").append($(this).html());
+                $(".result p").append($(this).html());
             }
         });
     }, {
