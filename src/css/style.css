@@ -3,3 +3,17 @@
 * ---
 */
 
+body {
+  font-size: 18px;
+}
+
+.num,
+.op {
+  display: flex;
+}
+
+p {
+  padding: 10px;
+  background: #cccccc;
+  margin: 10px;
+}

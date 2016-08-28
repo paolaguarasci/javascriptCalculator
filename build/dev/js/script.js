@@ -5659,24 +5659,45 @@
         var n = "";
         var op = [];
         var buff = [];
+        var history = [];
         $(".num p").click(function() {
+            if (typeof buff[buff.length - 1] === "number") {
+                buff.splice(0, buff.length);
+                $(".result p").html("0");
+            }
             n += $(this).html();
-            $(".operation").html(buff);
+            $(".operation p").html(n);
         });
         $(".op p").click(function() {
             op.push($(this).html());
-            buff.push(parseFloat(n));
-            buff.push($(this).html());
-            $(".operation").html(buff);
+            if (n) {
+                buff.push(parseFloat(n));
+            }
+            if (typeof buff[buff.length - 1] === "number") {
+                buff.push($(this).html());
+            }
+            $(".operation p").html(buff);
             n = "";
         });
         $(".res p").click(function() {
-            buff.push(parseFloat(n));
+            if (n) {
+                buff.push(parseFloat(n));
+            }
+            if (typeof buff[buff.length - 1] !== "number") {
+                buff.pop();
+            }
+            history.push(calc(buff));
             $(".result p").html(calc(buff));
-            console.log(buff);
             buff.splice(0, buff.length);
+            buff.push(history[history.length - 1]);
             n = "";
-            $(".operation").html("0");
+            $(".operation p").html("0");
+        });
+        $(".punto p").click(function() {
+            if (n.indexOf(".") === -1) {
+                n += $(this).html();
+                $(".operation p").html(n);
+            }
         });
     }, {
         jquery: 1
