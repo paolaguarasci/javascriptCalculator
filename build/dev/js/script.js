@@ -5665,13 +5665,13 @@
         });
         $(".op p").click(function() {
             op.push($(this).html());
-            buff.push(parseInt(n));
+            buff.push(parseFloat(n));
             buff.push($(this).html());
             $(".operation").html(buff);
             n = "";
         });
         $(".res p").click(function() {
-            buff.push(parseInt(n));
+            buff.push(parseFloat(n));
             $(".result p").html(calc(buff));
             console.log(buff);
             buff.splice(0, buff.length);
