@@ -21,8 +21,6 @@ border-radius: 3px;
 border: 1px solid black;
 }
 
-
-
 p {
   text-align: center;
   width: 100%;
@@ -38,8 +36,6 @@ p {
   font-size: 40px;
 }
 
-
-
 .tasti {
   text-align: center;
   background: black;
@@ -51,6 +47,7 @@ p {
   border-radius: 5px;
   font-weight: bold;
 }
+
 .zero {
   width: 120px;
   padding-left: 15px;
@@ -60,6 +57,7 @@ p {
   height: 120px;
   padding-top: 40px;
 }
+
 .ac,
 .ce {
   background: red;
@@ -82,10 +80,8 @@ p {
 }
 
 .footer p {
-
   color: #999999;
   font-size: 12px;
   padding-top: 10px;
   font-style: italic;
-
 }
