@@ -7,7 +7,9 @@ var $ = require('jquery');
 // TODO
 // X implementare la visulizzazione live dell'operazione
 // X implementare i tasti AC e CE
-// O limite cifre (10?) [Edit: mezzo risolto, non del tutto]
+// X limite cifre (10?) [Edit: mezzo risolto, non del tutto]
+// X bug 111111111*111111111
+
 
 // Calculator Core function
 function calc(value) {
@@ -72,11 +74,14 @@ $( ".num" ).click(function() {
     operation.append(html);
     result.append(html);
     n += html;
-  } else {
-    n = '';
-    result.html("max limit!");
-    operation.html("max limit!");
   }
+  // else {
+  //   n = '';
+  //   result.html("max limit!");
+  //   operation.html("max limit!");
+  // }
+
+checkOp ();
 
 }); //fine eventi numeri
 
@@ -96,7 +101,7 @@ $( ".op" ).click(function() {
    result.html(html);
   }
 
-
+checkOp ();
   n = '';
 }); // fine eventi operatori
 
@@ -108,15 +113,17 @@ $(".res").click(function() {
   if(typeof buff[buff.length-1] !== 'number') {
     buff.pop();
   }
+
   var calcoli = calc(buff);
-  var calcoliRounded = Math.round(calcoli * 1000000) / 1000000;
+  var calcoliRounded = calcoli.toPrecision(6);
 
   history.push(calcoli);
-  result.html(calcoli);
-  operation.html(buff.join('') + '='+ calcoli);
+  result.html(calcoliRounded);
+  operation.html(buff.join('') + '='+ calcoliRounded);
   buff.splice(0,buff.length);
   buff.push(history[history.length-1]);
   n = '';
+  checkOp ();
 });// fine eventi "="
 
 //Eventi legati alla pressione del tasto "."
@@ -138,6 +145,11 @@ $('.punto').click(function(){
     operation.html(html);
     result.html(html);
   }
+
+checkOp ();
+
+
+
 }); //fine eventi "."
 
 //Eventi legati alla pressione del tasto "CE"
@@ -171,3 +183,11 @@ $(".tasti").mousedown(function() {
   var height = parseFloat($(this).css("height")) - 3;
   $(this).css("height", height.toString()+"px");
 });
+
+function checkOp () {
+  var htmlPre = operation.html();
+  var newString = htmlPre.slice(-25);
+  if (htmlPre.length > 25) {
+    operation.html(newString);
+  }
+}

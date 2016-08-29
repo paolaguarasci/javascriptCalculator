@@ -5681,11 +5681,8 @@
                 operation.append(html);
                 result.append(html);
                 n += html;
-            } else {
-                n = "";
-                result.html("max limit!");
-                operation.html("max limit!");
             }
+            checkOp();
         });
         $(".op").click(function() {
             var html = $(this).children().html();
@@ -5701,6 +5698,7 @@
                 operation.append(html);
                 result.html(html);
             }
+            checkOp();
             n = "";
         });
         $(".res").click(function() {
@@ -5711,13 +5709,14 @@
                 buff.pop();
             }
             var calcoli = calc(buff);
-            var calcoliRounded = Math.round(calcoli * 1e6) / 1e6;
+            var calcoliRounded = calcoli.toPrecision(6);
             history.push(calcoli);
-            result.html(calcoli);
-            operation.html(buff.join("") + "=" + calcoli);
+            result.html(calcoliRounded);
+            operation.html(buff.join("") + "=" + calcoliRounded);
             buff.splice(0, buff.length);
             buff.push(history[history.length - 1]);
             n = "";
+            checkOp();
         });
         $(".punto").click(function() {
             var html = $(this).children().html();
@@ -5735,6 +5734,7 @@
                 operation.html(html);
                 result.html(html);
             }
+            checkOp();
         });
         $(".ce").click(function() {
             buff.pop();
@@ -5761,6 +5761,13 @@
             var height = parseFloat($(this).css("height")) - 3;
             $(this).css("height", height.toString() + "px");
         });
+        function checkOp() {
+            var htmlPre = operation.html();
+            var newString = htmlPre.slice(-25);
+            if (htmlPre.length > 25) {
+                operation.html(newString);
+            }
+        }
     }, {
         jquery: 1
     } ]
