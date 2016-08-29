@@ -8,6 +8,7 @@ var $ = require('jquery');
 // TODO
 // X implementare la visulizzazione live dell'operazione
 // X implementare i tasti AC e CE
+// - limite cifre (30?)
 
 
 
@@ -60,19 +61,34 @@ $( ".num p" ).click(function() {
     $(".operation p").html('');
   }
 
-  n += $( this ).html();
+//   if (n.length < 10) {
+//   n += $( this ).html();
+// } else {
+//   n = '';
+//   $(".result p").html("max limit!");
+//   $('.operation p').html(buff || '0');
+// }
 
-  if ($(".operation p").html() === '0'){
+  if ($(".operation p").html() === '0' || $(".operation p").html() === 'max limit!' ){
     $(".operation p").html($( this ).html());
     $(".result p").html($(this).html());
-  } else if (n.length === 1){
-  // if ($(".operation p").html() === '0'){
+    n += $( this ).html();
+  } else if (n.length === 0) {
     $(".result p").html($(this).html());
     $(".operation p").append($( this ).html());
-  }  else {
+    n += $( this ).html();
+  }  else if(n.length < 10) {
     $(".operation p").append($( this ).html());
     $(".result p").append($(this).html());
+    n += $( this ).html();
+  } else {
+    n = '';
+    $(".result p").html("max limit!");
+    $('.operation p').html("max limit!");
   }
+
+
+
 }); //fine eventi numeri
 
 //Eventi legati alla pressione degli operatori
@@ -105,9 +121,8 @@ $(".res p").click(function() {
   }
 
   history.push(calc(buff));
-  $(".result p").html(calc(buff));
-  // $(".operation p").append('='+calc(buff));
-  $(".operation p").html(buff.join('') + '='+calc(buff));
+  $(".result p").html(Math.round(calc(buff) * 1000000) / 1000000);
+  $(".operation p").html(buff.join('') + '='+ Math.round(calc(buff) * 1000000) / 1000000);
   buff.splice(0,buff.length);
   buff.push(history[history.length-1]);
   n = '';
@@ -115,11 +130,23 @@ $(".res p").click(function() {
 });// fine eventi "="
 
 //Eventi legati alla pressione del tasto "."
-$('.punto p').click(function(){
-  if (n.indexOf('.') === -1 ) {
-    n += $( this ).html();
-    $(".operation p").append($(this).html());
-    $(".result p").append($(this).html());
+$('.punto').click(function(){
+  var html = $( this ).children().html();
+
+  if (typeof buff[buff.length-1] === 'number' ) {
+    buff.splice(0,buff.length);
+    $(".result p").html('0');
+    $(".operation p").html('');
+  }
+
+  if (n.indexOf('.') === -1 && n.length !== 0) {
+    n += html;
+    $(".operation p").append(html);
+    $(".result p").append(html);
+  } else if (n.length === 0 ){
+    n += html;
+    $(".operation p").html(html);
+    $(".result p").html(html);
   }
 }); //fine eventi "."
 
