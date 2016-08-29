@@ -4,13 +4,10 @@ var $ = require('jquery');
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-
 // TODO
 // X implementare la visulizzazione live dell'operazione
 // X implementare i tasti AC e CE
-// - limite cifre (30?)
-
-
+// O limite cifre (10?) [Edit: mezzo risolto, non del tutto]
 
 // Calculator Core function
 function calc(value) {
@@ -51,59 +48,53 @@ var n = '';
 var op = [];
 var buff = [];
 var history = [];
+var result = $(".result p");
+var operation = $(".operation p");
 
 // Eventi legati alla pressione dei numeri
-$( ".num p" ).click(function() {
+$( ".num" ).click(function() {
+  var html = $( this ).children().html();
 
   if (typeof buff[buff.length-1] === 'number' ) {
     buff.splice(0,buff.length);
-    $(".result p").html('0');
-    $(".operation p").html('');
+    result.html('0');
+    operation.html('');
   }
 
-//   if (n.length < 10) {
-//   n += $( this ).html();
-// } else {
-//   n = '';
-//   $(".result p").html("max limit!");
-//   $('.operation p').html(buff || '0');
-// }
-
-  if ($(".operation p").html() === '0' || $(".operation p").html() === 'max limit!' ){
-    $(".operation p").html($( this ).html());
-    $(".result p").html($(this).html());
-    n += $( this ).html();
+  if (operation.html() === '0' || operation.html() === 'max limit!' ){
+    operation.html(html);
+    result.html(html);
+    n += html;
   } else if (n.length === 0) {
-    $(".result p").html($(this).html());
-    $(".operation p").append($( this ).html());
-    n += $( this ).html();
+    result.html(html);
+    operation.append(html);
+    n += html;
   }  else if(n.length < 10) {
-    $(".operation p").append($( this ).html());
-    $(".result p").append($(this).html());
-    n += $( this ).html();
+    operation.append(html);
+    result.append(html);
+    n += html;
   } else {
     n = '';
-    $(".result p").html("max limit!");
-    $('.operation p').html("max limit!");
+    result.html("max limit!");
+    operation.html("max limit!");
   }
-
-
 
 }); //fine eventi numeri
 
 //Eventi legati alla pressione degli operatori
-$( ".op p" ).click(function() {
-  op.push($( this ).html());
+$( ".op" ).click(function() {
+  var html = $( this ).children().html();
+  op.push(html);
   if (n){
   buff.push(parseFloat(n));
   }
   if (buff.length === 1) {
-  $(".operation p").html(buff);
+  operation.html(buff);
   }
   if (typeof buff[buff.length-1] === 'number' ) {
-   buff.push($( this ).html());
-   $(".operation p").append($( this ).html());
-   $(".result p").html($(this).html());
+   buff.push(html);
+   operation.append(html);
+   result.html(html);
   }
 
 
@@ -111,22 +102,21 @@ $( ".op p" ).click(function() {
 }); // fine eventi operatori
 
 //Eventi legati alla pressione del tasto "="
-$(".res p").click(function() {
+$(".res").click(function() {
   if (n){
     buff.push(parseFloat(n));
   }
-
   if(typeof buff[buff.length-1] !== 'number') {
     buff.pop();
   }
-
-  history.push(calc(buff));
-  $(".result p").html(Math.round(calc(buff) * 1000000) / 1000000);
-  $(".operation p").html(buff.join('') + '='+ Math.round(calc(buff) * 1000000) / 1000000);
+  var calcoli = calc(buff);
+  var calcoliRounded = Math.round(calcoli * 1000000) / 1000000;
+  history.push(calcoliRounded);
+  result.html(calcoliRounded);
+  operation.html(buff.join('') + '='+ calcoliRounded);
   buff.splice(0,buff.length);
   buff.push(history[history.length-1]);
   n = '';
-  ce = 0;
 });// fine eventi "="
 
 //Eventi legati alla pressione del tasto "."
@@ -135,37 +125,36 @@ $('.punto').click(function(){
 
   if (typeof buff[buff.length-1] === 'number' ) {
     buff.splice(0,buff.length);
-    $(".result p").html('0');
-    $(".operation p").html('');
+    result.html('0');
+    operation.html('');
   }
 
   if (n.indexOf('.') === -1 && n.length !== 0) {
     n += html;
-    $(".operation p").append(html);
-    $(".result p").append(html);
+    operation.append(html);
+    result.append(html);
   } else if (n.length === 0 ){
     n += html;
-    $(".operation p").html(html);
-    $(".result p").html(html);
+    operation.html(html);
+    result.html(html);
   }
 }); //fine eventi "."
 
 //Eventi legati alla pressione del tasto "CE"
-$('.ce p').click(function(){
+$('.ce').click(function(){
     buff.pop();
-    $('.operation p').html(buff);
-    $('.result p').html('0');
+    operation.html(buff);
+    result.html('0');
     n = '';
-
     if (buff.length === 0) {
-      $('.operation p').html('0');
+      operation.html('0');
     }
 }); // fine eventi CE
 
-//Eventi legati alla pressione del tasto "CE"
-$('.ac p').click(function(){
+//Eventi legati alla pressione del tasto "AC"
+$('.ac').click(function(){
     buff.splice(0,buff.length);
-    $('.operation p').html('0');
-    $('.result p').html('0');
+    operation.html('0');
+    result.html('0');
     n = '';
 }); // fine eventi CE
