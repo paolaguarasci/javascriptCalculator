@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.3",
+    "completion": "^1.0.1",
     "gulp-filter": "^4.0.0",
     "gulp-main-bower-files": "^1.5.2",
     "gulp-wiredep": "0.0.0",

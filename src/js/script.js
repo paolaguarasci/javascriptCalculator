@@ -7,7 +7,7 @@ var $ = require('jquery');
 
 // TODO
 // X implementare la visulizzazione live dell'operazione
-// - implementare i tasti AC e CE
+// X implementare i tasti AC e CE
 
 
 
@@ -45,7 +45,7 @@ function calc(value) {
   return result;
 }
 
-// immissione dati
+// Variabili globali
 var n = '';
 var op = [];
 var buff = [];
@@ -62,12 +62,11 @@ $( ".num p" ).click(function() {
 
   n += $( this ).html();
 
-  if ($(".operation p").html() === '0' ){
+  if ($(".operation p").html() === '0'){
     $(".operation p").html($( this ).html());
     $(".result p").html($(this).html());
-  }
-
-  if (n.length === 1){
+  } else if (n.length === 1){
+  // if ($(".operation p").html() === '0'){
     $(".result p").html($(this).html());
     $(".operation p").append($( this ).html());
   }  else {
@@ -82,11 +81,15 @@ $( ".op p" ).click(function() {
   if (n){
   buff.push(parseFloat(n));
   }
+  if (buff.length === 1) {
+  $(".operation p").html(buff);
+  }
   if (typeof buff[buff.length-1] === 'number' ) {
    buff.push($( this ).html());
    $(".operation p").append($( this ).html());
    $(".result p").html($(this).html());
   }
+
 
   n = '';
 }); // fine eventi operatori
@@ -103,13 +106,15 @@ $(".res p").click(function() {
 
   history.push(calc(buff));
   $(".result p").html(calc(buff));
-  $(".operation p").append('='+calc(buff));
+  // $(".operation p").append('='+calc(buff));
+  $(".operation p").html(buff.join('') + '='+calc(buff));
   buff.splice(0,buff.length);
   buff.push(history[history.length-1]);
   n = '';
+  ce = 0;
 });// fine eventi "="
 
-//Eventi lefati alla pressione del tasto "."
+//Eventi legati alla pressione del tasto "."
 $('.punto p').click(function(){
   if (n.indexOf('.') === -1 ) {
     n += $( this ).html();
@@ -117,3 +122,23 @@ $('.punto p').click(function(){
     $(".result p").append($(this).html());
   }
 }); //fine eventi "."
+
+//Eventi legati alla pressione del tasto "CE"
+$('.ce p').click(function(){
+    buff.pop();
+    $('.operation p').html(buff);
+    $('.result p').html('0');
+    n = '';
+
+    if (buff.length === 0) {
+      $('.operation p').html('0');
+    }
+}); // fine eventi CE
+
+//Eventi legati alla pressione del tasto "CE"
+$('.ac p').click(function(){
+    buff.splice(0,buff.length);
+    $('.operation p').html('0');
+    $('.result p').html('0');
+    n = '';
+}); // fine eventi CE

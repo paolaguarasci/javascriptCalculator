@@ -5670,8 +5670,7 @@
             if ($(".operation p").html() === "0") {
                 $(".operation p").html($(this).html());
                 $(".result p").html($(this).html());
-            }
-            if (n.length === 1) {
+            } else if (n.length === 1) {
                 $(".result p").html($(this).html());
                 $(".operation p").append($(this).html());
             } else {
@@ -5683,6 +5682,9 @@
             op.push($(this).html());
             if (n) {
                 buff.push(parseFloat(n));
+            }
+            if (buff.length === 1) {
+                $(".operation p").html(buff);
             }
             if (typeof buff[buff.length - 1] === "number") {
                 buff.push($(this).html());
@@ -5700,10 +5702,11 @@
             }
             history.push(calc(buff));
             $(".result p").html(calc(buff));
-            $(".operation p").append("=" + calc(buff));
+            $(".operation p").html(buff.join("") + "=" + calc(buff));
             buff.splice(0, buff.length);
             buff.push(history[history.length - 1]);
             n = "";
+            ce = 0;
         });
         $(".punto p").click(function() {
             if (n.indexOf(".") === -1) {
@@ -5711,6 +5714,21 @@
                 $(".operation p").append($(this).html());
                 $(".result p").append($(this).html());
             }
+        });
+        $(".ce p").click(function() {
+            buff.pop();
+            $(".operation p").html(buff);
+            $(".result p").html("0");
+            n = "";
+            if (buff.length === 0) {
+                $(".operation p").html("0");
+            }
+        });
+        $(".ac p").click(function() {
+            buff.splice(0, buff.length);
+            $(".operation p").html("0");
+            $(".result p").html("0");
+            n = "";
         });
     }, {
         jquery: 1
