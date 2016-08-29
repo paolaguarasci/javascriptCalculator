@@ -5712,9 +5712,9 @@
             }
             var calcoli = calc(buff);
             var calcoliRounded = Math.round(calcoli * 1e6) / 1e6;
-            history.push(calcoliRounded);
-            result.html(calcoliRounded);
-            operation.html(buff.join("") + "=" + calcoliRounded);
+            history.push(calcoli);
+            result.html(calcoli);
+            operation.html(buff.join("") + "=" + calcoli);
             buff.splice(0, buff.length);
             buff.push(history[history.length - 1]);
             n = "";
@@ -5750,6 +5750,16 @@
             operation.html("0");
             result.html("0");
             n = "";
+        });
+        $(".tasti").mouseup(function() {
+            $(this).removeClass("premuto").addClass("ombra");
+            var height = parseFloat($(this).css("height")) + 3;
+            $(this).css("height", height.toString() + "px");
+        });
+        $(".tasti").mousedown(function() {
+            $(this).addClass("premuto").removeClass("ombra");
+            var height = parseFloat($(this).css("height")) - 3;
+            $(this).css("height", height.toString() + "px");
         });
     }, {
         jquery: 1

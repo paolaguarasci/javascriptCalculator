@@ -54,7 +54,6 @@ var operation = $(".operation p");
 // Eventi legati alla pressione dei numeri
 $( ".num" ).click(function() {
   var html = $( this ).children().html();
-
   if (typeof buff[buff.length-1] === 'number' ) {
     buff.splice(0,buff.length);
     result.html('0');
@@ -111,9 +110,10 @@ $(".res").click(function() {
   }
   var calcoli = calc(buff);
   var calcoliRounded = Math.round(calcoli * 1000000) / 1000000;
-  history.push(calcoliRounded);
-  result.html(calcoliRounded);
-  operation.html(buff.join('') + '='+ calcoliRounded);
+
+  history.push(calcoli);
+  result.html(calcoli);
+  operation.html(buff.join('') + '='+ calcoli);
   buff.splice(0,buff.length);
   buff.push(history[history.length-1]);
   n = '';
@@ -158,3 +158,16 @@ $('.ac').click(function(){
     result.html('0');
     n = '';
 }); // fine eventi CE
+
+
+$(".tasti").mouseup(function() {
+  $(this).removeClass("premuto").addClass("ombra");
+  var height = parseFloat($(this).css("height")) + 3;
+  $(this).css("height", height.toString()+"px");
+});
+
+$(".tasti").mousedown(function() {
+  $(this).addClass("premuto").removeClass("ombra");
+  var height = parseFloat($(this).css("height")) - 3;
+  $(this).css("height", height.toString()+"px");
+});

@@ -3,29 +3,50 @@
 * ---
 */
 
+
+/* Utility */
+@font-face {
+	font-family: 'LCDN';
+	src: url('./LCDN.eot');
+	src: local('LCDN'), url('./LCDN.woff') format('woff'), url('./LCDN.ttf') format('truetype');
+}
+
 * {
   margin: 0px;
   padding: 0px;
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
   font-size: 18px;
+	background: #fefbd8;
 }
-
-.container {
-width: 282px;
-margin-top: 5%;
-background: green;
-border-radius: 3px;
-border: 1px solid black;
-}
-
 p {
   text-align: center;
-  width: 100%;
-  height: 100%;
 }
+
+.row,
+.container {
+	margin: 0;
+	padding: 0;
+}
+
+/* Parte in plastica*/
+.calcolatrice {
+border-radius: 20px;
+border: 1px solid #666;
+/*background: rgb(163, 163, 163);*/
+background: #618685;
+-webkit-box-shadow: inset 0px -4px 11px 3px rgba(50, 50, 50, 0.34);
+-moz-box-shadow:    inset 0px -4px 11px 3px rgba(50, 50, 50, 0.34);
+box-shadow:         inset 0px -4px 11px 3px rgba(50, 50, 50, 0.34);
+margin: 4% auto;
+height: 545px;
+width: 320px;
+padding-right: 25px;
+padding-left: 25px;
+}
+
 
 .operation p,
 .result p {
@@ -36,52 +57,80 @@ p {
   font-size: 40px;
 }
 
-.tasti {
-  text-align: center;
-  background: black;
-  margin: 10px;
-  width: 50px;
-  height: 50px;
-  color: white;
-  font-size: 30px;
-  border-radius: 5px;
-  font-weight: bold;
+
+.lcd {
+  background: #cccccc;
+  color: #666666;
+  font-family: LCDN;
+  border-radius: 10px;
+  margin: 20px auto;
+	border: 3px solid #999999;
+
+
+
 }
 
-.zero {
-  width: 120px;
-  padding-left: 15px;
+/* Pulsantiera */
+.pulsantiera {
+}
+
+.col-xs-9,
+.col-xs-3 {
+	padding: 0;
+}
+
+.tasti {
+  /*width: 50px;*/
+	box-sizing: border-box;
+	width: 60px;
+	height: 53px;
+	margin: 10px 3.5px;
+	border-radius: 12px;
+	font-size: 30px;
+  background: #333333;
+  color: #ddd;
+  font-weight: bold;
+  -webkit-box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.49);
+  -moz-box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.49);
+  box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.49);
 }
 
 .res {
-  height: 120px;
-  padding-top: 40px;
+  height: 125px;
+		padding-top: 40px;
+}
+
+.zero {
+	width: 127px;
 }
 
 .ac,
 .ce {
-  background: red;
-  color: black;
-  font-size: 20px;
-  padding-top: 9px;
-  padding-left: 10px;
+  font-size: 25px;
+	padding-top: 8px;
+
 }
 
-.display {
-  background: #cccccc;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  color: #666666;
-  font-family: serif;
-  padding-top: 15px;
-  border-radius: 5px;
-  width: 260px;
+/* Effetti */
+.ombra {
+	background: rgb(43, 43, 43);
+	background: -moz-linear-gradient(90deg, rgb(43, 43, 43) 83%, rgb(81, 81, 81) 100%);
+	background: -webkit-linear-gradient(90deg, rgb(43, 43, 43) 83%, rgb(81, 81, 81) 100%);
+	background: -o-linear-gradient(90deg, rgb(43, 43, 43) 83%, rgb(81, 81, 81) 100%);
+	background: -ms-linear-gradient(90deg, rgb(43, 43, 43) 83%, rgb(81, 81, 81) 100%);
+	background: linear-gradient(180deg, rgb(43, 43, 43) 83%, rgb(81, 81, 81) 100%);
+	}
+
+.premuto {
+  -webkit-box-shadow: inset 0px 0px 0px 0px rgba(0,0,0,0.49);
+  -moz-box-shadow: inset 0px 0px 0px 0px rgba(0,0,0,0.49);
+  box-shadow: inset 0px 0px 0px 0px rgba(0,0,0,0.49);
+  margin-top: 13px;
 }
 
+/* Footer (copyrigth)*/
 .footer p {
-  color: #999999;
-  font-size: 12px;
-  padding-top: 10px;
+  color: #999;
+  font-size: 16px;
   font-style: italic;
 }
