@@ -3,17 +3,87 @@
 * ---
 */
 
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
 body {
   font-size: 18px;
 }
 
-.num,
-.op {
-  display: flex;
+.container {
+width: 282px;
+margin-top: 5%;
+background: green;
+border-radius: 3px;
+border: 1px solid black;
 }
 
+
+
 p {
-  padding: 10px;
-  background: #cccccc;
+  text-align: center;
+}
+
+.operation p,
+.result p {
+  text-align: right;
+}
+
+.result p {
+  font-size: 40px;
+}
+
+
+
+.tasti {
+  text-align: center;
+  background: black;
   margin: 10px;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 30px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.zero {
+  width: 120px;
+  padding-left: 15px;
+}
+
+.res {
+  height: 120px;
+  padding-top: 40px;
+}
+.ac,
+.ce {
+  background: red;
+  color: black;
+  font-size: 20px;
+  padding-top: 9px;
+  padding-left: 10px;
+}
+
+.display {
+  background: #cccccc;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #666666;
+  font-family: serif;
+  padding-top: 15px;
+  border-radius: 5px;
+  width: 260px;
+}
+
+.footer p {
+
+  color: #999999;
+  font-size: 12px;
+  padding-top: 10px;
+  font-style: italic;
+
 }
