@@ -102,12 +102,17 @@ checkOp ();
 //Eventi legati alla pressione degli operatori
 $( ".op" ).click(function() {
   var html = $( this ).children().html();
-  //op.push(html);
-  if (n && n !== '.'){
+  op.push(html);
+  if (n && isFinite(n)){
   buff.push(parseFloat(n));
-} else {
-  buff.push(0);
 }
+
+// if (n && n !== '.'){
+// buff.push(parseFloat(n));
+// } else {
+// buff.push(0);
+// }
+
   if (buff.length === 1 ) {
   operation.html(buff);
   }
@@ -124,25 +129,37 @@ checkOp ();
 
 //Eventi legati alla pressione del tasto "="
 $(".res").click(function() {
-  if (n){
-    buff.push(parseFloat(n));
-  }
+  // if (n){
+  //   buff.push(parseFloat(n));
+  // }
+  if (n && isFinite(n)){
+  buff.push(parseFloat(n));
+}
+
   if(isNaN(buff[buff.length-1]) || typeof buff[buff.length-1] !== 'number') {
     buff.pop();
   }
-
-
   console.log(buff);
   var calcoli = calc(buff);
   var calcoliRounded = checkRes(calcoli);
+  if (isFinite(calcoli)) {
+    history.push(calcoli);
+    result.html(calcoliRounded);
+    operation.html(buff.join('') + '='+ calcoliRounded);
+    buff.splice(0,buff.length);
+    buff.push(history[history.length-1]);
+    n = '';
+    checkOp();
+  } else {
+    result.html("Error!");
+    operation.html("############");
+    buff.splice(0,buff.length);
+    // buff.push(history[history.length-1]);
+    n = '';
+    // checkOp();
+  }
 
-  history.push(calcoli);
-  result.html(calcoliRounded);
-  operation.html(buff.join('') + '='+ calcoliRounded);
-  buff.splice(0,buff.length);
-  buff.push(history[history.length-1]);
-  n = '';
-  checkOp ();
+
 });// fine eventi "="
 
 //Eventi legati alla pressione del tasto "."
@@ -164,8 +181,7 @@ $('.punto').click(function(){
     operation.html(html);
     result.html(html);
   }
-
-checkOp ();
+  checkOp ();
 
 
 
