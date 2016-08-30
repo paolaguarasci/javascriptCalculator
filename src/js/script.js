@@ -102,18 +102,21 @@ checkOp ();
 //Eventi legati alla pressione degli operatori
 $( ".op" ).click(function() {
   var html = $( this ).children().html();
-  op.push(html);
-  if (n){
+  //op.push(html);
+  if (n && n !== '.'){
   buff.push(parseFloat(n));
-  }
-  if (buff.length === 1) {
+} else {
+  buff.push(0);
+}
+  if (buff.length === 1 ) {
   operation.html(buff);
   }
   if (typeof buff[buff.length-1] === 'number' ) {
    buff.push(html);
    operation.append(html);
    result.html(html);
-  }
+ }
+
 
 checkOp ();
   n = '';
@@ -124,10 +127,12 @@ $(".res").click(function() {
   if (n){
     buff.push(parseFloat(n));
   }
-  if(typeof buff[buff.length-1] !== 'number') {
+  if(isNaN(buff[buff.length-1]) || typeof buff[buff.length-1] !== 'number') {
     buff.pop();
   }
 
+
+  console.log(buff);
   var calcoli = calc(buff);
   var calcoliRounded = checkRes(calcoli);
 
