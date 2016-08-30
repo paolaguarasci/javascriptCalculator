@@ -43,7 +43,7 @@ function calc(value) {
     return temp;
   });
 
-  return result;
+  return Math.round( result * 100000000) / 100000000;
 }
 
 // Variabili globali
@@ -198,9 +198,18 @@ function checkRes (value){
 
   if (Number.isInteger(value) && value <= 9999999999) {
     return value;
-  } else if (decimal.length < 8) {
+  }
+
+  if (Number.isInteger(value) && value > 9999999999) {
+    return value.toPrecision(6);
+  }
+
+  if (decimal.length < 8) {
     return value;
   } else {
     return value.toPrecision(6);
   }
+
+
+
 }

@@ -5654,7 +5654,7 @@
                 x++;
                 return temp;
             });
-            return result;
+            return Math.round(result * 1e8) / 1e8;
         }
         var n = "";
         var op = [];
@@ -5772,7 +5772,11 @@
             var decimal = (Math.round((value - Math.floor(value)) * 1e8) / 1e8).toString();
             if (Number.isInteger(value) && value <= 9999999999) {
                 return value;
-            } else if (decimal.length < 8) {
+            }
+            if (Number.isInteger(value) && value > 9999999999) {
+                return value.toPrecision(6);
+            }
+            if (decimal.length < 8) {
                 return value;
             } else {
                 return value.toPrecision(6);
