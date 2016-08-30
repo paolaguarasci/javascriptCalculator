@@ -5640,6 +5640,7 @@
             var buffer = Array.from(value);
             var num = [];
             var op = [];
+            var resultTemp = 0;
             for (var i = 0; i < buffer.length; i++) {
                 if (i === 0 || i % 2 === 0) {
                     num.push(buffer[i]);
@@ -5649,6 +5650,14 @@
             }
             var base = num[0];
             var x = 0;
+            for (var i = 0; i < op.length; i++) {
+                if (op[i] == "*" || op[i] == "/") {
+                    resultTemp = operators[op[i]](num[i], num[i + 1]);
+                    num.splice(i, 2, resultTemp);
+                    op.splice(i, 1);
+                    console.log("num: " + num + " op: " + op);
+                }
+            }
             var result = num.reduce(function(a, b) {
                 var temp = operators[op[x]](a, b);
                 x++;
