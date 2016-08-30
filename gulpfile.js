@@ -38,9 +38,11 @@ var destPath        = {
 var destinazione,
     htmlCollapse,
     uglifyOpt,
+    index,
     scope = process.env.NODE_ENV || "dev";
 
 if ( scope === "dev") {
+  index = "index.html";
   destinazione = destPath.dev;
   htmlCollapse = false;
   uglifyOpt = {
@@ -50,7 +52,9 @@ if ( scope === "dev") {
                   beautify: true
                 }
               };
+
 } else {
+  index = "home.html";
   destinazione = destPath.prod;
   htmlCollapse = true;
   uglifyOpt = {
@@ -66,6 +70,7 @@ if ( scope === "dev") {
 gulp.task('html', function() {
   return gulp.src(sourcePath.html)
     .pipe(htmlmin({collapseWhitespace: htmlCollapse}))
+    .pipe(rename(index))
     .pipe(gulp.dest(destinazione))
     .pipe(browserSync.stream());
 });

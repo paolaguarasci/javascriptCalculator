@@ -9,6 +9,7 @@ var $ = require('jquery');
 // X implementare i tasti AC e CE
 // X limite cifre (10?) [Edit: mezzo risolto, non del tutto]
 // X bug 111111111*111111111
+// - toPrecision crea problemi con gli interi, RISOLVERE!!!
 
 
 // Calculator Core function
@@ -115,7 +116,7 @@ $(".res").click(function() {
   }
 
   var calcoli = calc(buff);
-  var calcoliRounded = calcoli.toPrecision(6);
+  var calcoliRounded = checkRes(calcoli);
 
   history.push(calcoli);
   result.html(calcoliRounded);
@@ -189,5 +190,17 @@ function checkOp () {
   var newString = htmlPre.slice(-25);
   if (htmlPre.length > 25) {
     operation.html(newString);
+  }
+}
+
+function checkRes (value){
+  var decimal = (Math.round((value - Math.floor(value)) *100000000) / 100000000).toString();
+
+  if (Number.isInteger(value) && value <= 9999999999) {
+    return value;
+  } else if (decimal.length < 8) {
+    return value;
+  } else {
+    return value.toPrecision(6);
   }
 }

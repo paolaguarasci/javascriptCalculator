@@ -5709,7 +5709,7 @@
                 buff.pop();
             }
             var calcoli = calc(buff);
-            var calcoliRounded = calcoli.toPrecision(6);
+            var calcoliRounded = checkRes(calcoli);
             history.push(calcoli);
             result.html(calcoliRounded);
             operation.html(buff.join("") + "=" + calcoliRounded);
@@ -5766,6 +5766,16 @@
             var newString = htmlPre.slice(-25);
             if (htmlPre.length > 25) {
                 operation.html(newString);
+            }
+        }
+        function checkRes(value) {
+            var decimal = (Math.round((value - Math.floor(value)) * 1e8) / 1e8).toString();
+            if (Number.isInteger(value) && value <= 9999999999) {
+                return value;
+            } else if (decimal.length < 8) {
+                return value;
+            } else {
+                return value.toPrecision(6);
             }
         }
     }, {
